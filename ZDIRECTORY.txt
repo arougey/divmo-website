@@ -1,0 +1,32 @@
+Directory structure for: /Users/alexrougebec/Projects/Apps/DivyIt/website
+
++-- public/
+ +-- .DS_Store
+ +-- divyit.png
+ +-- file.svg
+ +-- globe.svg
+ +-- logo.png
+ +-- next.svg
+ +-- vercel.svg
+ +-- window.svg
++-- src/
+ +-- app/
+  +-- favicon.ico
+  +-- globals.css
+  +-- layout.tsx
+  +-- page.tsx
+ +-- components/
+  +-- Navbar.tsx
++-- .DS_Store
++-- .gitignore
++-- eslint.config.mjs
++-- next-env.d.ts
++-- next.config.ts
++-- package-lock.json
++-- package.json
++-- postcss.config.mjs
++-- README.md
++-- tailwind.config.js
++-- tsconfig.json
++-- ZDIRECTORY.txt
++-- ZGETDIRTREE.js
