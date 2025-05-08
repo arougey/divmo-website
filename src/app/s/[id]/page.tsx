@@ -1,6 +1,9 @@
 import { supabase } from '@/lib/supabase'
+import { notFound } from 'next/navigation'
 
-export default async function SplitPage({ params }: { params: { id: string } }) {
+export default async function SplitPage({ 
+  params 
+}: { params: { id: string } }) {
   const { data: split } = await supabase
     .from('splits')
     .select('*')
@@ -27,7 +30,9 @@ export default async function SplitPage({ params }: { params: { id: string } }) 
             <p className="text-lg">${p.amount.toFixed(2)}</p>
             <button
               onClick={() =>
-                navigator.clipboard.writeText(`venmo://pay?txn=pay&amount=${p.amount}&note=DivyIt&recipients=${p.handle}`)
+                navigator.clipboard.writeText(
+                  `venmo://pay?txn=pay&amount=${p.amount}&note=DivyIt&recipients=${p.handle}`
+                )
               }
               className="text-blue-500 text-sm"
             >

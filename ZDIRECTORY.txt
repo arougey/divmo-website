@@ -11,13 +11,19 @@ Directory structure for: /Users/alexrougebec/Projects/Apps/DivyIt/website
  +-- window.svg
 +-- src/
  +-- app/
+  +-- s/
+   +-- [id]/
+    +-- page.tsx
   +-- favicon.ico
   +-- globals.css
   +-- layout.tsx
   +-- page.tsx
  +-- components/
   +-- Navbar.tsx
+ +-- lib/
+  +-- supabase.ts
 +-- .DS_Store
++-- .env
 +-- .gitignore
 +-- eslint.config.mjs
 +-- next-env.d.ts
