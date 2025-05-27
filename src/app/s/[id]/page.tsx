@@ -1,3 +1,4 @@
+//website/src/app/s/[id]/page.tsx
 import { supabase } from '@/lib/supabase'
 import { notFound } from 'next/navigation'
 

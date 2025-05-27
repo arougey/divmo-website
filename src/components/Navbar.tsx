@@ -1,3 +1,4 @@
+//src/components/Navbar.tsx
 'use client'
 
 import Link from 'next/link'
@@ -22,7 +23,7 @@ export default function Navbar() {
             DivyIt
           </span>
         </Link>
-        <nav className="flex items-center space-x-6">
+        <nav className="hidden flex-col space-y-4 sm:flex sm:flex-row sm:items-center sm:space-y-0 sm:space-x-6">
           <Link href="/download" className="text-white hover:text-fuchsia-950 transition">
             Download App
           </Link>
@@ -31,7 +32,7 @@ export default function Navbar() {
           </Link>
           <Link
             href="/premium"
-            className="rounded-full bg-fuchsia-900 px-6 py-3 text-black hover:bg-fuchsia-950 transition shadow-md"
+            className="rounded-full bg-fuchsia-900 px-6 py-3 text-white hover:bg-fuchsia-950 transition shadow-md"
           >
             Premium
           </Link>
