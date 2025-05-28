@@ -9,7 +9,7 @@ export const dynamic = 'force-dynamic'
 
 import { useSearchParams } from 'next/navigation'
 import { useMemo } from 'react'
-import { BillParticipant, OfflineSplitData } from "@/shared/types/split"
+import { BillParticipant, OfflineSplitData } from "@/types/split"
 
 export default function OfflineSplitPage() {
   const params = useSearchParams()
