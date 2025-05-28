@@ -9,17 +9,15 @@ export const dynamic = 'force-dynamic'
 
 import { useSearchParams } from 'next/navigation'
 import { useMemo } from 'react'
-import { BillParticipant, OfflineSplitData } from "@/types/split"
+import { BillParticipant } from "@/types/split"
+import { decodeSplitData } from '@/utils/decoding'
 
 export default function OfflineSplitPage() {
   const params = useSearchParams()
-  const data: OfflineSplitData = useMemo(() => {
-    try {
-      const raw = atob(decodeURIComponent(params.get('data') || ''))
-      return JSON.parse(raw)
-    } catch {
-      return null
-    }
+  const data = useMemo(() => {
+  const encoded = params.get('data')
+  if (!encoded) return null
+  return decodeSplitData(encoded)
   }, [params])
 
   if (!data) return <p className="p-4">Invalid split data</p>
