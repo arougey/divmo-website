@@ -29,10 +29,13 @@ export default function OfflineSplitPage() {
   return (
     <main className="p-4 max-w-md mx-auto">
       <h1 className="text-xl font-bold mb-4">DivyIt Split (Offline)</h1>
-      <p className="text-sm text-gray-500 mb-4">
-        Total: ${formattedTotal} | Tip: {formattedTip}% | Tax: ${formattedTax}
-      </p>
 
+      <p className="text-sm text-gray-500 mb-4">
+        Total: ${formattedTotal}
+        {tip > 0 && ` | Tip: ${formattedTip}%`}
+        {tax > 0 && ` | Tax: $${formattedTax}`}
+      </p>
+3
       {participants.map((p, i) => {
         const amount = p.amount.toFixed(2)
         const paypalUsername = p.email?.split('@')[0] || ''
