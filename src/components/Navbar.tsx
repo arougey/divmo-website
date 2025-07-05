@@ -11,7 +11,7 @@ export default function Navbar() {
         <Link href="/" className="flex items-center space-x-2">
           {/* Logo */}
           <Image
-            src="../public/divyit.png"
+            src="/divyit.png"
             alt="DivyIt Logo"
             width={64}
             height={64}
