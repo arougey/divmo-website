@@ -12,7 +12,7 @@ export default function HomePage() {
             Split bills, stress-free.
           </h1>
           <p className="mb-8 text-base sm:text-lg text-gray-600">
-            DivyUp helps you share expenses with friends in seconds.
+            DivyIt helps you share expenses with friends in seconds.
           </p>
           <Link
             href="/about"
