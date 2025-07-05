@@ -1,4 +1,6 @@
+//website/src/types/split.ts
 import { z } from 'zod'
+import { PaymentMethodsSchema } from './payment'
 
 /**
  * 💳 Represents the simplified version of a participant
@@ -19,6 +21,7 @@ export const OfflineSplitSchema = z.object({
   total: z.number(),
   tip: z.number(),
   tax: z.number(),
+  paymentMethods: PaymentMethodsSchema.optional()
 })
 
 export type BillParticipant = z.infer<typeof BillParticipantSchema>

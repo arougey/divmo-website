@@ -35,7 +35,7 @@ export default function OfflineSplitPage() {
         {tip > 0 && ` | Tip: ${formattedTip}%`}
         {tax > 0 && ` | Tax: $${formattedTax}`}
       </p>
-3
+
       {participants.map((p, i) => {
         const amount = p.amount.toFixed(2)
         const paypalUsername = p.email?.split('@')[0] || ''
