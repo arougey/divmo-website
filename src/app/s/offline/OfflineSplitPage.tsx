@@ -2,29 +2,33 @@
 
 import { useSearchParams } from 'next/navigation'
 import { useMemo } from 'react'
-import { BillParticipant } from "@/types/split"
+import { OfflineSplit } from "@/types/split"
 import { decodeSplitData } from '@/utils/decoding'
 
 export const dynamic = 'force-dynamic'
 
 export default function OfflineSplitPage() {
   const params = useSearchParams()
-  const dataRaw = useMemo(() => {
+  const dataRaw = useMemo<OfflineSplit | null>(() => {
     const encoded = params.get('data')
-    if (!encoded) return null
-    return decodeSplitData(encoded)
+    return encoded ? decodeSplitData(encoded) : null
   }, [params])
 
   if (!dataRaw) return <p className="p-4">Invalid split data</p>
 
   // Cast participants to include optional email
-  const { participants: rawParticipants = [], total, tip, tax } = dataRaw
-  const participants = rawParticipants as Array<BillParticipant & { email?: string }>
+  const { paymentMethods = {} } = dataRaw
+  const {
+    venmoHandle,
+    cashappHandle, 
+    zelleHandle, 
+    paypalHandle 
+  } = paymentMethods
 
   // Format values
-  const formattedTotal = total.toFixed(2)
-  const formattedTip = tip.toFixed(2)
-  const formattedTax = tax.toFixed(2)
+  const formattedTotal = dataRaw.total.toFixed(2)
+  const formattedTip = dataRaw.tip.toFixed(2)
+  const formattedTax = dataRaw.tax.toFixed(2)
 
   return (
     <main className="p-4 max-w-md mx-auto">
@@ -32,20 +36,28 @@ export default function OfflineSplitPage() {
 
       <p className="text-sm text-gray-500 mb-4">
         Total: ${formattedTotal}
-        {tip > 0 && ` | Tip: ${formattedTip}%`}
-        {tax > 0 && ` | Tax: $${formattedTax}`}
+        {dataRaw.tip > 0 && ` | Tip: ${formattedTip}%`}
+        {dataRaw.tax > 0 && ` | Tax: $${formattedTax}`}
       </p>
 
-      {participants.map((p, i) => {
+      {dataRaw.participants.map((p, i) => {
         const amount = p.amount.toFixed(2)
-        const paypalUsername = p.email?.split('@')[0] || ''
-
-        // Build deep links
-        const venmoLink = `venmo://paycharge?txn=pay&recipients=${encodeURIComponent(
+        const note = encodeURIComponent('DivyIt Payment')
+        
+        const venmoHref = `venmo://paycharge?txn=pay&recipients=${encodeURIComponent(
           p.phoneNumber || ''
-        )}&amount=${amount}&note=${encodeURIComponent('DivyIt')}`
-        const paypalLink = paypalUsername
-          ? `https://paypal.me/${encodeURIComponent(paypalUsername)}/${amount}`
+        )}&amount=${amount}&note=${note}`
+
+        const paypalHref = paypalHandle
+          ? `paypal://send?recipient=${encodeURIComponent(paypalHandle)}&amount=${amount}&currency=USD`
+          : ''
+
+        const cashappHref = cashappHandle
+          ? `cashapp://$${encodeURIComponent(cashappHandle)}?amount=${amount}&note=${note}`
+          : ''
+
+          const zelleHref = zelleHandle
+          ? `zelle://pay?recipient=${encodeURIComponent(zelleHandle)}&amount=${amount}` 
           : ''
 
         return (
@@ -57,22 +69,45 @@ export default function OfflineSplitPage() {
             <div className="text-right space-y-2">
               <p className="text-lg font-bold">${amount}</p>
               <div className="flex flex-col space-y-1">
-                <button
-                  className="text-blue-500 text-sm"
-                  onClick={() => navigator.clipboard.writeText(venmoLink)}
-                >
-                  Copy Venmo Link
-                </button>
-                {paypalLink ? (
-                  <button
-                    className="text-blue-500 text-sm"
-                    onClick={() => navigator.clipboard.writeText(paypalLink)}
+                {/* VENMO */}
+                {venmoHref ? (
+                  <a
+                    href={venmoHref}
+                    className='text-blue-500 text-sm'
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
-                    Copy PayPal Link
-                  </button>
-                ) : (
-                  <p className="text-sm text-gray-500 italic">
-                    Add email to add PayPal link
+                    Pay With Venmo
+                  </a>
+                ) : null}
+
+                {/* PAYPAL */}
+                {paypalHref ? (
+                  <a
+                    href={paypalHref}
+                    className='text-blue-500 text-sm'
+                    target='_blank'
+                    rel="noopener noreferrer"
+                  >
+                    Pay with PayPal
+                  </a>
+                ) : null}
+
+                {cashappHref ? (
+                  <a
+                    href={cashappHref}
+                    className='text-green-500 text-sm'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    Pay with Zelle
+                  </a>
+                ) : null}
+
+                {/* Fallback instruction if none */}
+                {!(venmoHandle || paypalHref || cashappHref || zelleHref) && (
+                  <p className='text-sm text-gray-500 italic'>
+                    Host hasn`t set up any native payment links.
                   </p>
                 )}
               </div>
