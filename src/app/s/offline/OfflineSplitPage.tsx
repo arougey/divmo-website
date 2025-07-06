@@ -32,7 +32,7 @@ export default function OfflineSplitPage() {
 
   return (
     <main className="p-4 max-w-md mx-auto">
-      <h1 className="text-xl font-bold mb-4">DivyIt Split (Offline)</h1>
+      <h1 className="text-xl font-bold mb-4">Divmo Split (Offline)</h1>
 
       <p className="text-sm text-gray-500 mb-4">
         Total: ${formattedTotal}
@@ -42,7 +42,7 @@ export default function OfflineSplitPage() {
 
       {dataRaw.participants.map((p, i) => {
         const amount = p.amount.toFixed(2)
-        const note = encodeURIComponent('DivyIt Payment')
+        const note = encodeURIComponent('Divmo Payment')
         
         const venmoHref = venmoHandle 
         ? `venmo://paycharge?txn=pay` +
@@ -72,6 +72,7 @@ export default function OfflineSplitPage() {
             <div>
               <p className="font-semibold">{p.name}</p>
               <p className="text-sm text-gray-500">{p.phoneNumber || '—'}</p>
+              <p className="text-sm text-gray-500">{p.email || '—'}</p>
             </div>
             <div className="text-right space-y-2">
               <p className="text-lg font-bold">${amount}</p>

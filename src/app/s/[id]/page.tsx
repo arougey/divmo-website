@@ -20,7 +20,7 @@ export default async function SplitPage({
 
   return (
     <main className="p-4 max-w-md mx-auto">
-      <h1 className="text-xl font-bold mb-4">DivyIt Split</h1>
+      <h1 className="text-xl font-bold mb-4">Divmo Split</h1>
       {participants.map((p) => (
         <div key={p.id} className="border-b py-2 flex justify-between">
           <div>
@@ -32,7 +32,7 @@ export default async function SplitPage({
             <button
               onClick={() =>
                 navigator.clipboard.writeText(
-                  `venmo://pay?txn=pay&amount=${p.amount}&note=DivyIt&recipients=${p.handle}`
+                  `venmo://pay?txn=pay&amount=${p.amount}&note=Divmo&recipients=${p.handle}`
                 )
               }
               className="text-blue-500 text-sm"
