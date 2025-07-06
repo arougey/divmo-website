@@ -44,20 +44,27 @@ export default function OfflineSplitPage() {
         const amount = p.amount.toFixed(2)
         const note = encodeURIComponent('DivyIt Payment')
         
-        const venmoHref = `venmo://paycharge?txn=pay&recipients=${encodeURIComponent(
-          p.phoneNumber || ''
-        )}&amount=${amount}&note=${note}`
+        const venmoHref = venmoHandle 
+        ? `venmo://paycharge?txn=pay` +
+        `&recipients=${encodeURIComponent(venmoHandle)}` +
+        `&amount=${amount}` +
+        `&note=${note}`
+        : 0
 
         const paypalHref = paypalHandle
-          ? `paypal://send?recipient=${encodeURIComponent(paypalHandle)}&amount=${amount}&currency=USD`
+          ? `paypal://send?recipient=${encodeURIComponent(paypalHandle)}` +
+          `&amount=${amount}&currency=USD`
           : ''
 
         const cashappHref = cashappHandle
-          ? `cashapp://$${encodeURIComponent(cashappHandle)}?amount=${amount}&note=${note}`
+          ? `cashapp://$${encodeURIComponent(cashappHandle)}` +
+          `?amount=${amount}` +
+          `&note=${note}`
           : ''
 
           const zelleHref = zelleHandle
-          ? `zelle://pay?recipient=${encodeURIComponent(zelleHandle)}&amount=${amount}` 
+          ? `zelle://pay?recipient=${encodeURIComponent(zelleHandle)}`
+          `&amount=${amount}` 
           : ''
 
         return (
