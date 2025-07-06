@@ -9,6 +9,7 @@ import { PaymentMethodsSchema } from './payment'
 export const BillParticipantSchema = z.object({
   name: z.string(),
   phoneNumber: z.string().optional(),
+  email: z.string().optional(),
   amount: z.number(),
 })
 
