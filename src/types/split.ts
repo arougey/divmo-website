@@ -22,7 +22,10 @@ export const OfflineSplitSchema = z.object({
   total: z.number(),
   tip: z.number(),
   tax: z.number(),
-  paymentMethods: PaymentMethodsSchema.optional()
+  paymentMethods: PaymentMethodsSchema.optional(),
+  date: z.string().refine((val) => !isNaN(Date.parse(val)), {
+    message: "date must be a valid ISO date string"
+  })
 })
 
 export type BillParticipant = z.infer<typeof BillParticipantSchema>
