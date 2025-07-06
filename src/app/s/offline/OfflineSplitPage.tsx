@@ -63,7 +63,7 @@ export default function OfflineSplitPage() {
           : ''
 
           const zelleHref = zelleHandle
-          ? `zelle://pay?recipient=${encodeURIComponent(zelleHandle)}`
+          ? `zelle://pay?recipient=${encodeURIComponent(zelleHandle)}` +
           `&amount=${amount}` 
           : ''
 
