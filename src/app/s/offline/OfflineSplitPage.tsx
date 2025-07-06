@@ -41,12 +41,16 @@ export default function OfflineSplitPage() {
       </p>
 
       {dataRaw.participants.map((p, i) => {
+        const now = new Date()
+        const dateStr = now.toLocaleDateString()
         const amount = p.amount.toFixed(2)
-        const note = encodeURIComponent('Divmo Payment')
+        const note = encodeURIComponent(`Divmo Payment ${dateStr}`)
         
+        //https://account.venmo.com/pay?recipients=Liam_Rougebec&amount=20.00
+        //https://venmo.com/Liam_Rougebec?txn=pay&amount=20.00&note=Divmo%20Payment
         const venmoHref = venmoHandle 
-        ? `venmo://paycharge?txn=pay` +
-        `&recipients=${encodeURIComponent(venmoHandle)}` +
+        ? `https://venmo.com/` +
+        `${encodeURIComponent(venmoHandle)}?txn=pay` +
         `&amount=${amount}` +
         `&note=${note}`
         : 0
