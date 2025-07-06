@@ -11,8 +11,8 @@ export default function Navbar() {
         <Link href="/" className="flex items-center space-x-2">
           {/* Logo */}
           <Image
-            src="/divyitlogotransparent.png"
-            alt="DivyIt Logo"
+            src="/divmologotransparent.png"
+            alt="Divmo Logo"
             width={64}
             height={64}
             priority
@@ -20,7 +20,7 @@ export default function Navbar() {
           />
           {/* App Name */}
           <span className="text-2xl font-bold text-white">
-            DivyIt
+            Divmo
           </span>
         </Link>
         <nav className="hidden flex-col space-y-4 sm:flex sm:flex-row sm:items-center sm:space-y-0 sm:space-x-6">
